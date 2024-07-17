@@ -1,39 +1,32 @@
-<!-- # mb-chalenge
+# Desafio MB
+Este repositório contém o código-fonte para o Desafio MB, que inclui o frontend e o backend da aplicação.
 
-This template should help get you started developing with Vue 3 in Vite.
+## Pré-requisitos
 
-## Recommended IDE Setup
+Certifique-se de ter o Node.js e npm instalados na sua máquina.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/). -->
-## Faça o download:
+## Clone o repositório:
 
 ```sh
 git clone https://github.com/LucasAlmeida-jpg/desafio-mb.git
 ```
 
-## Para rodar o projeto, instale as dependências
+## Instale as dependências:
 
 ```sh
 npm install
 ```
 
-### Para compilar:
-
+### Executando o Projeto
 ```sh
 npm run dev
 ```
 
-### Para simular o servidor:
+Isso iniciará o servidor de desenvolvimento para o frontend e o backend.
 
-```sh
-node server
-```
 
-### Para realizar testes:
+
+### Para executar os testes unitários, utilize o comando:
 
 ```sh
 npm run test:unit
