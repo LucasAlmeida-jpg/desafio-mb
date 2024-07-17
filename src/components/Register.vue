@@ -172,7 +172,7 @@
           }
       };
 
-      const isValid = (field, value, type) => {
+      const isValid = (field, value) => {
           switch (field) {
               case 'name':
               case 'companyName':
