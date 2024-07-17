@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>{{formData.registrationType === 'PF' ? 'Pessoa Fisica' : formData.registrationType === 'PJ'  ? 'Pessoa Juridica' : 'Pessoa Fisica'}}</h2>
+    <h2>{{formData.registrationType === 'PF' ? 'Pessoa Fisica' : formData.registrationType === 'PJ' ? 'Pessoa Juridica' : 'Pessoa Fisica'}}</h2>
     <form @submit.prevent="validateStep">
       <template v-if="formData.registrationType === 'PF'">
         <div class="form-group">
@@ -10,17 +10,17 @@
 
         <div class="form-group">
           <label class="label-text" for="cpf">CPF:</label>
-          <input class="input-group" id="cpf" type="text" v-model="formData.cpf" @input="applyCpfMask">
+          <input class="input-group" id="cpf" type="text" v-model="formData.cpf" @input="event => applyCpfMask(event, formData)">
         </div>
         
         <div class="form-group">
           <label class="label-text" for="birthDate">Data de nascimento:</label>
-          <input class="input-group" id="birthDate" type="text" v-model="formData.birthDate" @input="applyDateMask">
+          <input class="input-group" id="birthDate" type="text" v-model="formData.birthDate" @input="event => applyDateMask(event, formData, 'birthDate')">
         </div>
 
         <div class="form-group">
           <label class="label-text" for="phone">Telefone:</label>
-          <input class="input-group" id="phone" type="text" v-model="formData.phone" @input="applyPhoneMask">
+          <input class="input-group" id="phone" type="text" v-model="formData.phone" @input="event => applyPhoneMask(event, formData, 'phone')">
         </div>
       </template>
 
@@ -32,17 +32,17 @@
 
         <div class="form-group">
           <label class="label-text" for="cnpj">CNPJ:</label>
-          <input class="input-group" id="cnpj" type="text" v-model="formData.cnpj" @input="applyCnpjMask">
+          <input class="input-group" id="cnpj" type="text" v-model="formData.cnpj" @input="event => applyCnpjMask(event, formData)">
         </div>
 
         <div class="form-group">
           <label class="label-text" for="companyOpeningDate">Data de abertura:</label>
-          <input class="input-group" id="companyOpeningDate" type="text" v-model="formData.companyOpeningDate" @input="applyDateMask">
+          <input class="input-group" id="companyOpeningDate" type="text" v-model="formData.companyOpeningDate" @input="event => applyDateMask(event, formData, 'companyOpeningDate')">
         </div>
 
         <div class="form-group">
           <label class="label-text" for="companyPhone">Telefone:</label>
-          <input class="input-group" id="companyPhone" type="text" v-model="formData.companyPhone" @input="applyPhoneMask">
+          <input class="input-group" id="companyPhone" type="text" v-model="formData.companyPhone" @input="event => applyPhoneMask(event, formData, 'companyPhone')">
         </div>
       </template>
 
@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import { applyCpfMask, applyCnpjMask, applyDateMask, applyPhoneMask } from '../helpers/maskHelpers';
+
 export default {
   props: ['formData'],
   setup(props, { emit }) {
@@ -101,51 +103,6 @@ export default {
 
     const isValidDate = (date) => {
       return /^\d{2}\/\d{2}\/\d{4}$/.test(date);
-    };
-
-    const applyCpfMask = (event) => {
-      const input = event.target;
-      let cpf = input.value.replace(/\D/g, ''); 
-      cpf = cpf.slice(0, 11);
-      cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
-      props.formData.cpf = cpf; 
-    };
-
-    const applyCnpjMask = (event) => {
-      const input = event.target;
-      let cnpj = input.value.replace(/\D/g, '');
-      cnpj = cnpj.slice(0, 14);      
-      if (cnpj.length === 14) {
-        cnpj = cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
-      }
-      props.formData.cnpj = cnpj; 
-    };
-
-    const applyDateMask = (event) => {
-      const input = event.target;
-      let date = input.value.replace(/\D/g, '');
-      date = date.slice(0, 8);
-      date = date.replace(/^(\d{2})(\d{2})(\d{4})$/, '$1/$2/$3');
-      props.formData.birthDate = date; 
-      props.formData.companyOpeningDate = date;
-    };
-    
-    const applyPhoneMask = (event) => {
-      const input = event.target;
-      let phone = input.value.replace(/\D/g, '');
-      if (phone.length > 11) {
-        phone = phone.slice(0, 11);
-      }
-      if (phone.length > 6) {
-        phone = phone.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-      } else if (phone.length > 2) {
-        phone = phone.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-      } else {
-        phone = phone.replace(/^(\d*)/, '($1');
-      }
-      props.formData.phone = phone;
-      props.formData.companyPhone = phone;
-
     };
 
     return {
