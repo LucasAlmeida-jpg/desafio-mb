@@ -33,7 +33,7 @@ npm run dev
 node server
 ```
 
-### Para testar:
+### Para realizar testes:
 
 ```sh
 npm run test:unit
