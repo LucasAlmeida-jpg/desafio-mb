@@ -22,6 +22,8 @@ span {
   padding: 10px;
   border-radius: 12px;
   opacity: 0.8;
+  font-size: 10px;
+  right: 10px;
 }
 
 @media (max-width: 600px) {

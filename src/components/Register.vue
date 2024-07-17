@@ -138,7 +138,7 @@
 
               if (missingFields.length > 0 || invalidFields.length > 0) {
                   showErrorAlert.value = true;
-                  errorMessage.value = `Os seguintes campos são obrigatórios ou inválidos: ${[...missingFields, ...invalidFields].join(', ')}`;
+                  errorMessage.value = 'Verifique, os seguintes campos são obrigatórios ou inválidos';
                   setTimeout(() => {
                       showErrorAlert.value = false;
                   }, 3000);
