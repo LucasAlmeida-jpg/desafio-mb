@@ -6,25 +6,25 @@
         <div>
           <div class="form-group">
             <label class="label-text" for="email">Endereço de email</label>
-            <input class="input-group" id="email" type="text" v-model="formData.email">
+            <input class="input-group" disabled id="email" type="text" v-model="formData.email">
           </div>
         </div>
         <div v-if="isPfRegistration">
           <div class="form-group">
             <label class="label-text" for="name">Nome</label>
-            <input class="input-group" id="name" type="text" v-model="formData.name">
+            <input class="input-group" disabled id="name" type="text" v-model="formData.name">
           </div>
           <div class="form-group">
             <label class="label-text" for="cpf">CPF</label>
-            <input class="input-group" id="cpf" type="text" v-model="formData.cpf">
+            <input class="input-group" disabled id="cpf" type="text" v-model="formData.cpf">
           </div>
           <div class="form-group">
             <label class="label-text" for="birthDate">Data de nascimento</label>
-            <input class="input-group" id="birthDate" type="text" v-model="formData.birthDate">
+            <input class="input-group" disabled id="birthDate" type="text" v-model="formData.birthDate">
           </div>
           <div class="form-group">
             <label class="label-text" for="phone">Telefone</label>
-            <input class="input-group" id="phone" type="text" v-model="formData.phone">
+            <input class="input-group" disabled id="phone" type="text" v-model="formData.phone">
           </div>
         </div>
         <div v-else-if="isPjRegistration">
