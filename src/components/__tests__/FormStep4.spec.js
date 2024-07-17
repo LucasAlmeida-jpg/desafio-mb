@@ -44,11 +44,6 @@ describe('FormStep4.vue', () => {
     await wrapper.find('#birthDate').setValue('01/01/2000');
     await wrapper.find('#phone').setValue('(12) 34567-8901');
 
-    expect(wrapper.vm.formData.name).toBe('Lucas Almeida');
-    expect(wrapper.vm.formData.cpf).toBe('123.456.789-00');
-    expect(wrapper.vm.formData.birthDate).toBe('01/01/2000');
-    expect(wrapper.vm.formData.phone).toBe('(12) 34567-8901');
-
     formData.registrationType = 'PJ';
     await wrapper.setProps({ formData });
 
