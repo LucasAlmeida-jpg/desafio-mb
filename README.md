@@ -21,7 +21,7 @@ git clone https://github.com/LucasAlmeida-jpg/desafio-mb.git
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Para compilar:
 
 ```sh
 npm run dev
