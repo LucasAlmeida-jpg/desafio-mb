@@ -3,7 +3,7 @@ import StepCounter from '@/components/StepCounter.vue';
 
 
 describe('StepCounter.vue', () => {
-  it('renders props.currentStep when passed', () => {
+  it('renderiza props.currentStep quando correto', () => {
     const currentStep = 2;
     const totalSteps = 5;
     const wrapper = shallowMount(StepCounter, {

@@ -22,35 +22,41 @@ describe('FormStep3.vue', () => {
     vi.restoreAllMocks();
   });
 
-  it('renders the component', () => {
+  it('renderiza o componente', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('updates password field correctly', async () => {
+  it('atualiza o campo de senha corretamente', async () => {
     const input = wrapper.find('#password');
 
-    await input.setValue('testPassword');
-    expect(wrapper.vm.formData.password).toBe('testPassword');
+    await input.setValue('Test@123');
+    expect(wrapper.vm.formData.password).toBe('Test@123');
   });
 
-  it('validates form submission with password', async () => {
-    await wrapper.find('#password').setValue('testPassword');
+  it('faz validação do envio com senha válida', async () => {
+    await wrapper.find('#password').setValue('Test@123');
 
     await wrapper.find('form').trigger('submit.prevent');
 
     expect(window.alert).not.toHaveBeenCalled();
-
     expect(wrapper.emitted().validated).toBeTruthy();
-    expect(wrapper.emitted().validated[0]).toEqual([formData]);
+    expect(wrapper.emitted().validated[0]).toEqual([{ password: 'Test@123' }]);
   });
 
-  it('alerts when password field is empty', async () => {
+  it('valida se o campo de senha esta vazio', async () => {
     await wrapper.find('#password').setValue('');
 
     await wrapper.find('form').trigger('submit.prevent');
 
-    expect(window.alert).toHaveBeenCalledWith('Por favor, preencha todos os campos.');
+    expect(wrapper.emitted().validated).toBeFalsy();
+  });
 
+  it('alerta se a senha nao tiver os criterios definidos', async () => {
+    await wrapper.find('#password').setValue('test');
+
+    await wrapper.find('form').trigger('submit.prevent');
+
+    expect(window.alert).toHaveBeenCalledWith('A senha deve conter pelo menos 1 letra maiúscula, 1 caractere especial e ter no mínimo 5 letras.');
     expect(wrapper.emitted().validated).toBeFalsy();
   });
 });

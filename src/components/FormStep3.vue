@@ -22,8 +22,16 @@ export default {
   props: ['formData'],
   setup(props, { emit }) {
     const validateStep = () => {
-      if (!props.formData.password) {
-        alert('Por favor, preencha todos os campos.');
+      const password = props.formData.password;
+      const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{5,}$/;
+
+      if (!password) {
+        alert('Por favor, preencha a senha!');
+        return;
+      }
+
+      if (!passwordPattern.test(password)) {
+        alert('A senha deve conter pelo menos 1 letra maiúscula, 1 caractere especial e ter no mínimo 5 letras.');
         return;
       }
 

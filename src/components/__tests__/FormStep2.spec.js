@@ -30,7 +30,7 @@ describe('FormStep2.vue', () => {
     vi.restoreAllMocks();
   });
 
-  it('validates PF form fields', async () => {
+  it('valida os inputs do tipo PF', async () => {
     formData.registrationType = 'PF';
 
    
@@ -63,7 +63,7 @@ describe('FormStep2.vue', () => {
     expect(wrapper.emitted().validated[0]).toEqual([formData]);
   });
 
-  it('validates PJ form fields', async () => {
+  it('valida os inputs do tipo PJ', async () => {
     formData.registrationType = 'PJ';
 
     formData.companyName = '123';
@@ -104,7 +104,7 @@ describe('FormStep2.vue', () => {
   
   
 // Para testar o campo de CNPJ, faça mudança no escopo do formData para PJ;
-//   it('applies CNPJ mask correctly', async () => {
+//   it('Aplica mascara de CNPJ', async () => {
 //     formData.registrationType = 'PJ';
 //     await wrapper.setProps({ formData });
 //     await wrapper.vm.$nextTick();

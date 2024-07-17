@@ -4,16 +4,7 @@
   
   <script>
   export default {
-    props: {
-      currentStep: {
-        type: Number,
-        required: true
-      },
-      totalSteps: {
-        type: Number,
-        required: true
-      }
-    }
+    props: ['currentStep', 'totalSteps']
   };
   </script>
    

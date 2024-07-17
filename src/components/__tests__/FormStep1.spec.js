@@ -3,7 +3,7 @@ import FormStep1 from '@/components/FormStep1.vue';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
 describe('FormStep1.vue', () => {
-  it('validates email format and form submission', async () => {
+  it('valida email e formato', async () => {
     const formData = {
       email: '',
       registrationType: 'PF'

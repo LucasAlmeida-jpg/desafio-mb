@@ -7,7 +7,7 @@ import FormStep4 from '@/components/FormStep4.vue';
 
 
 describe('Register.vue', () => {
-  it('renders correct step component based on currentStep', async () => {
+  it('renderiza corretamente os passos', async () => {
     const wrapper = mount(Register);
 
     expect(wrapper.findComponent(FormStep1).exists()).toBe(true);
@@ -39,7 +39,7 @@ describe('Register.vue', () => {
 
   });
 
-  it('allows user to go back to previous steps', async () => {
+  it('permite usuario voltar para etapa anterios', async () => {
     const wrapper = mount(Register);
 
     await wrapper.vm.handleStepValidation({ email: 'test@example.com' });

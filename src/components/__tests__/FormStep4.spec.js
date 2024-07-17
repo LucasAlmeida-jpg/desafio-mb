@@ -35,7 +35,7 @@ describe('FormStep4.vue', () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it('updates fields based on registration type', async () => {
+  it('valida os campos de acordo com o tipo de registro PF', async () => {
     formData.registrationType = 'PF';
     await wrapper.setProps({ formData });
 
@@ -64,7 +64,7 @@ describe('FormStep4.vue', () => {
     // expect(wrapper.vm.formData.companyPhone).toBe('(12) 34567-8901');
   });
 
-  it('validates form submission', async () => {
+  it('Valida o envio do formulario', async () => {
     await wrapper.find('#email').setValue('test@example.com');
 
     await wrapper.find('form').trigger('submit.prevent');
