@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { isValidEmail } from '../helpers/maskHelpers';
 
 export default {
   props: {
@@ -44,9 +45,7 @@ export default {
       }
     };
 
-    const isValidEmail = (email) => {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    };
+
 
     return {
       validateStep,

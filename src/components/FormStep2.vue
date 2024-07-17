@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>{{formData.registrationType === 'PF' ? 'Pessoa Fisica' : formData.registrationType === 'PJ' ? 'Pessoa Juridica' : 'Pessoa Fisica'}}</h2>
+    <h2>{{ formData.registrationType === 'PF' ? 'Pessoa Física' : 'Pessoa Jurídica' }}</h2>
     <form @submit.prevent="validateStep">
       <template v-if="formData.registrationType === 'PF'">
         <div class="form-group">
@@ -26,7 +26,7 @@
 
       <template v-else-if="formData.registrationType === 'PJ'">
         <div class="form-group">
-          <label class="label-text" for="companyName">Razão social:</label>
+          <label class="label-text" for="companyName">Razão Social:</label>
           <input class="input-group" id="companyName" type="text" v-model="formData.companyName">
         </div>
 
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { applyCpfMask, applyCnpjMask, applyDateMask, applyPhoneMask } from '../helpers/maskHelpers';
+import { applyCpfMask, applyCnpjMask, applyDateMask, applyPhoneMask, isValidName, isValidCpf, isValidDate, isValidCnpj, isValidPhone } from '../helpers/maskHelpers';
 
 export default {
   props: ['formData'],
@@ -73,36 +73,28 @@ export default {
           alert('Formato de Data de nascimento inválido.');
           return;
         }
+        else if (!isValidPhone(formData.phone)) {
+          alert('Telefone inválido.');
+          return;
+        }
       } else if (formData.registrationType === 'PJ') {
         if (!isValidName(formData.companyName)) {
-          alert('Formato de Razão social inválido.');
+          alert('Formato de Razão Social inválido.');
           return;
         } else if (!isValidCnpj(formData.cnpj)) {
           alert('Formato de CNPJ inválido.');
           return;
         } else if (!isValidDate(formData.companyOpeningDate)) {
-          alert('Formato de Data de abertura da empresa inválido.');
+          alert('Formato de Data de abertura inválido.');
+          return;
+        }
+        else if (!isValidPhone(formData.companyPhone)) {
+          alert('Telefone inválido.');
           return;
         }
       }
 
       emit('validated', formData);
-    };
-
-    const isValidName = (name) => {
-      return /^[A-Za-z\s]+$/.test(name);
-    };
-
-    const isValidCpf = (cpf) => {
-      return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf);
-    };
-
-    const isValidCnpj = (cnpj) => {
-      return /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/.test(cnpj);
-    };
-
-    const isValidDate = (date) => {
-      return /^\d{2}\/\d{2}\/\d{4}$/.test(date);
     };
 
     return {
@@ -113,8 +105,10 @@ export default {
       applyPhoneMask,
       isValidName,
       isValidCpf,
-      isValidCnpj,
       isValidDate,
+      isValidCnpj,
+      isValidPhone
+
     };
   }
 };

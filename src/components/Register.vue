@@ -29,7 +29,14 @@
   import AlertSuccess from './AlertSuccess.vue';
   import AlertError from './AlertError.vue';
   import StepCounter from './StepCounter.vue';
-  
+  import {
+  isValidCpf,
+  isValidCnpj,
+  isValidDate,
+  isValidPhone,
+  isValidName,
+  isValidEmail
+} from '../helpers/maskHelpers';
   export default {
     components: {
       StepCounter,
@@ -95,70 +102,97 @@
       };
   
       const sendFormData = async () => {
-        try {
-          let dataToSend = { ...formData.value };
+          try {
+              let dataToSend = { ...formData.value };
+              const missingFields = [];
+              const invalidFields = [];
 
-          const missingFields = [];
+              const validateFields = (fields, type) => {
+                  fields.forEach(field => {
+                      if (!dataToSend[field]) {
+                          missingFields.push(field);
+                      } else if (type === 'PF' && !isValid(field, dataToSend[field], 'PF')) {
+                          invalidFields.push(field);
+                      } else if (type === 'PJ' && !isValid(field, dataToSend[field], 'PJ')) {
+                          invalidFields.push(field);
+                      }
+                  });
+              };
 
-          if (dataToSend.registrationType === 'PF') {
-            if (!dataToSend.email) missingFields.push('email');
-            if (!dataToSend.name) missingFields.push('name');
-            if (!dataToSend.cpf) missingFields.push('cpf');
-            if (!dataToSend.birthDate) missingFields.push('birthDate');
-            if (!dataToSend.phone) missingFields.push('phone');
+              if (!dataToSend.email) missingFields.push('email');
 
-            delete dataToSend.companyName;
-            delete dataToSend.companyOpeningDate;
-            delete dataToSend.companyPhone;
-            delete dataToSend.cnpj;
-          } else if (dataToSend.registrationType === 'PJ') {
-            if (!dataToSend.email) missingFields.push('email');
-            if (!dataToSend.companyName) missingFields.push('companyName');
-            if (!dataToSend.cnpj) missingFields.push('cnpj');
-            if (!dataToSend.companyOpeningDate) missingFields.push('companyOpeningDate');
-            if (!dataToSend.companyPhone) missingFields.push('companyPhone');
+              if (dataToSend.registrationType === 'PF') {
+                  validateFields(['name', 'cpf', 'birthDate', 'phone', 'email'], 'PF');
+                  delete dataToSend.companyName;
+                  delete dataToSend.companyOpeningDate;
+                  delete dataToSend.companyPhone;
+                  delete dataToSend.cnpj;
+                  delete dataToSend.email;
+              } else if (dataToSend.registrationType === 'PJ') {
+                  validateFields(['companyName', 'cnpj', 'companyOpeningDate', 'companyPhone', 'email'], 'PJ');
+                  delete dataToSend.name;
+                  delete dataToSend.birthDate;
+                  delete dataToSend.cpf;
+                  delete dataToSend.email;
+              }
 
-            delete dataToSend.name;
-            delete dataToSend.birthDate;
-            delete dataToSend.cpf;
+              if (missingFields.length > 0 || invalidFields.length > 0) {
+                  showErrorAlert.value = true;
+                  errorMessage.value = `Os seguintes campos são obrigatórios ou inválidos: ${[...missingFields, ...invalidFields].join(', ')}`;
+                  setTimeout(() => {
+                      showErrorAlert.value = false;
+                  }, 3000);
+                  return;
+              }
+
+              const response = await fetch('/registration', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(dataToSend)
+              });
+
+              if (!response.ok) {
+                  throw new Error(`Erro ao enviar os dados. Status: ${response.status}`);
+              }
+
+              const data = await response.json();
+              console.log(data);
+
+              showAlert.value = true;
+              successMessage.value = 'Cadastro realizado com sucesso';
+              setTimeout(() => {
+                  showAlert.value = false;
+                  location.reload();
+              }, 3000);
+          } catch (error) {
+              showErrorAlert.value = true;
+              errorMessage.value = 'Erro ao cadastrar, tente novamente!';
           }
-
-          if (missingFields.length > 0) {
-            showErrorAlert.value = true;
-            errorMessage.value = `Os seguintes campos são obrigatórios: ${missingFields.join(', ')}`;
-            setTimeout(() => {
-              showErrorAlert.value = false;
-            }, 3000);
-            return;
-          }
-
-          const response = await fetch('/registration', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dataToSend)
-          });
-
-          if (!response.ok) {
-            throw new Error(`Erro ao enviar os dados. Status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log(data);
-
-          showAlert.value = true;
-          successMessage.value = 'Cadastro realizado com sucesso';
-          setTimeout(() => {
-            showAlert.value = false;
-            location.reload();
-          }, 3000);
-        } catch (error) {
-          showErrorAlert.value = true;
-          errorMessage.value = 'Erro ao cadastrar, tente novamente!';
-        }
       };
 
+      const isValid = (field, value, type) => {
+          switch (field) {
+              case 'name':
+              case 'companyName':
+                  return isValidName(value);
+              case 'cpf':
+                  return isValidCpf(value);
+              case 'cnpj':
+                  return isValidCnpj(value);
+              case 'birthDate':
+              case 'companyOpeningDate':
+                  return isValidDate(value);
+              case 'phone':
+              case 'companyPhone':
+                  return isValidPhone(value);
+              case 'email':
+                return isValidEmail(value);
+              default:
+                  return true;
+          }
+      };
 
       return {
         currentStep,
@@ -171,7 +205,7 @@
         showErrorAlert,
         successMessage,
         errorMessage,
-        currentStepNumber
+        currentStepNumber,
       };
     }
   };

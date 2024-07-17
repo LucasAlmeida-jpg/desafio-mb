@@ -6,25 +6,25 @@
         <div>
           <div class="form-group">
             <label class="label-text" for="email">Endereço de email</label>
-            <input class="input-group" disabled id="email" type="text" v-model="formData.email">
+            <input class="input-group" id="email" type="text" v-model="formData.email">
           </div>
         </div>
         <div v-if="isPfRegistration">
           <div class="form-group">
             <label class="label-text" for="name">Nome</label>
-            <input class="input-group" disabled id="name" type="text" v-model="formData.name">
+            <input class="input-group" id="name" type="text" v-model="formData.name">
           </div>
           <div class="form-group">
             <label class="label-text" for="cpf">CPF</label>
-            <input class="input-group" disabled id="cpf" type="text" v-model="formData.cpf">
+            <input class="input-group" id="cpf" type="text" v-model="formData.cpf" @input="event => applyCpfMask(event, formData)">
           </div>
           <div class="form-group">
             <label class="label-text" for="birthDate">Data de nascimento</label>
-            <input class="input-group" disabled id="birthDate" type="text" v-model="formData.birthDate">
+            <input class="input-group" id="birthDate" type="text" v-model="formData.birthDate" @input="event => applyDateMask(event, formData, 'birthDate')">
           </div>
           <div class="form-group">
             <label class="label-text" for="phone">Telefone</label>
-            <input class="input-group" disabled id="phone" type="text" v-model="formData.phone">
+            <input class="input-group" id="phone" type="text" v-model="formData.phone"  @input="event => applyPhoneMask(event, formData, 'phone')">
           </div>
         </div>
         <div v-else-if="isPjRegistration">
@@ -34,15 +34,15 @@
           </div>
           <div class="form-group">
             <label class="label-text" for="cnpj">CNPJ</label>
-            <input class="input-group" id="cnpj" type="text" v-model="formData.cnpj">
+            <input class="input-group" id="cnpj" type="text" v-model="formData.cnpj" @input="event => applyCnpjMask(event, formData)">
           </div>
           <div class="form-group">
             <label class="label-text" for="companyOpeningDate">Data de abertura</label>
-            <input class="input-group" id="companyOpeningDate" type="text" v-model="formData.companyOpeningDate">
+            <input class="input-group" id="companyOpeningDate" type="text" v-model="formData.companyOpeningDate" @input="event => applyDateMask(event, formData, 'companyOpeningDate')">
           </div>
           <div class="form-group">
             <label class="label-text" for="companyPhone">Telefone</label>
-            <input class="input-group" id="companyPhone" type="text" v-model="formData.companyPhone">
+            <input class="input-group" id="companyPhone" type="text" v-model="formData.companyPhone" @input="event => applyPhoneMask(event, formData, 'companyPhone')" >
           </div>
         </div>
         <div class="button-group">
@@ -56,6 +56,7 @@
 
 <script>
 import { ref } from 'vue';
+import { applyCpfMask, applyCnpjMask, applyDateMask, applyPhoneMask } from '../helpers/maskHelpers';
 
 export default {
   props: ['formData'],
@@ -76,7 +77,11 @@ export default {
     return {
       isPfRegistration,
       isPjRegistration,
-      validateStep
+      validateStep,
+      applyCpfMask,
+      applyCnpjMask,
+      applyDateMask,
+      applyPhoneMask,
     };
   }
 };
