@@ -9,6 +9,11 @@ This template should help get you started developing with Vue 3 in Vite.
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/). -->
+## Faça o download:
+
+```sh
+git clone https://github.com/LucasAlmeida-jpg/desafio-mb.git
+```
 
 ## Para rodar o projeto, instale as dependências
 
@@ -22,7 +27,7 @@ npm install
 npm run dev
 ```
 
-### Para rodar o servidor:
+### Para simular o servidor:
 
 ```sh
 node server
