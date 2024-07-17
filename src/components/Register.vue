@@ -96,21 +96,57 @@
   
       const sendFormData = async () => {
         try {
+          let dataToSend = { ...formData.value };
+
+          const missingFields = [];
+
+          if (dataToSend.registrationType === 'PF') {
+            if (!dataToSend.email) missingFields.push('email');
+            if (!dataToSend.name) missingFields.push('name');
+            if (!dataToSend.cpf) missingFields.push('cpf');
+            if (!dataToSend.birthDate) missingFields.push('birthDate');
+            if (!dataToSend.phone) missingFields.push('phone');
+
+            delete dataToSend.companyName;
+            delete dataToSend.companyOpeningDate;
+            delete dataToSend.companyPhone;
+            delete dataToSend.cnpj;
+          } else if (dataToSend.registrationType === 'PJ') {
+            if (!dataToSend.email) missingFields.push('email');
+            if (!dataToSend.companyName) missingFields.push('companyName');
+            if (!dataToSend.cnpj) missingFields.push('cnpj');
+            if (!dataToSend.companyOpeningDate) missingFields.push('companyOpeningDate');
+            if (!dataToSend.companyPhone) missingFields.push('companyPhone');
+
+            delete dataToSend.name;
+            delete dataToSend.birthDate;
+            delete dataToSend.cpf;
+          }
+
+          if (missingFields.length > 0) {
+            showErrorAlert.value = true;
+            errorMessage.value = `Os seguintes campos são obrigatórios: ${missingFields.join(', ')}`;
+            setTimeout(() => {
+              showErrorAlert.value = false;
+            }, 3000);
+            return;
+          }
+
           const response = await fetch('/registration', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData.value)
+            body: JSON.stringify(dataToSend)
           });
-  
+
           if (!response.ok) {
             throw new Error(`Erro ao enviar os dados. Status: ${response.status}`);
           }
-  
+
           const data = await response.json();
           console.log(data);
-  
+
           showAlert.value = true;
           successMessage.value = 'Cadastro realizado com sucesso';
           setTimeout(() => {
@@ -122,7 +158,8 @@
           errorMessage.value = 'Erro ao cadastrar, tente novamente!';
         }
       };
-      
+
+
       return {
         currentStep,
         formData,
