@@ -1,4 +1,4 @@
-# mb-chalenge
+<!-- # mb-chalenge
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -8,9 +8,9 @@ This template should help get you started developing with Vue 3 in Vite.
 
 ## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+See [Vite Configuration Reference](https://vitejs.dev/config/). -->
 
-## Project Setup
+## Para rodar o projeto, instale as dependências
 
 ```sh
 npm install
@@ -22,13 +22,13 @@ npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Para rodar o servidor:
 
 ```sh
-npm run build
+node server
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Para testar:
 
 ```sh
 npm run test:unit
