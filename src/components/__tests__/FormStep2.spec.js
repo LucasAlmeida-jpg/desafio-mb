@@ -68,7 +68,7 @@ describe('FormStep2.vue', () => {
 
     formData.companyName = '123';
     await wrapper.find('form').trigger('submit.prevent');
-    expect(window.alert).toHaveBeenCalledWith('Formato de Razão social inválido.');
+    expect(window.alert).toHaveBeenCalledWith('Formato de Razão Social inválido.');
 
     vi.clearAllMocks();
 
@@ -82,7 +82,7 @@ describe('FormStep2.vue', () => {
     formData.cnpj = '12.345.678/0001-00';
     formData.companyOpeningDate = '01-01-2000';
     await wrapper.find('form').trigger('submit.prevent');
-    expect(window.alert).toHaveBeenCalledWith('Formato de Data de abertura da empresa inválido.');
+    expect(window.alert).toHaveBeenCalledWith('Formato de Data de abertura inválido.');
 
     vi.clearAllMocks();
 
