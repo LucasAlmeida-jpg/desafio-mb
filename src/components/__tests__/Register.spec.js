@@ -5,6 +5,7 @@ import FormStep2 from '@/components/FormStep2.vue';
 import FormStep3 from '@/components/FormStep3.vue';
 import FormStep4 from '@/components/FormStep4.vue';
 
+
 describe('Register.vue', () => {
   it('renders correct step component based on currentStep', async () => {
     const wrapper = mount(Register);

@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import StepCounter from '@/components/StepCounter.vue';
 
+
 describe('StepCounter.vue', () => {
   it('renders props.currentStep when passed', () => {
     const currentStep = 2;
