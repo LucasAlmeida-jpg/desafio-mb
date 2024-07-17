@@ -5,17 +5,17 @@
       <form @submit.prevent="validateStep">
         <div class="form-group">
           <label class="label-text" for="email">Endereço de email:</label>
-          <input class="input-group" id="email" type="email" v-model="formData.email" >
+          <input class="input-group" id="email" type="text" v-model="formData.email" >
         </div>
 
         <div class="radio-group">
          <div>
-          <input type="radio" id="registrationTypePF" value="PF" v-model="formData.registrationType" required>
+          <input type="radio" id="registrationTypePF" value="PF" v-model="formData.registrationType" >
           <label class="label-text" for="registrationTypePF">Pessoa física</label>
          </div>
 
           <div>
-            <input type="radio" id="registrationTypePJ" value="PJ" v-model="formData.registrationType" required>
+            <input type="radio" id="registrationTypePJ" value="PJ" v-model="formData.registrationType">
           <label class="label-text" for="registrationTypePJ">Pessoa jurídica</label>
           </div>
         </div>
