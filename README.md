@@ -22,9 +22,11 @@ npm install
 npm run dev
 ```
 
-Isso iniciará o servidor de desenvolvimento para o frontend e o backend.
+Isso iniciará o servidor de desenvolvimento para o frontend e o backend
 
+### Para acessar utilize:
 
+http://localhost:5173/
 
 ### Para executar os testes unitários, utilize o comando:
 
