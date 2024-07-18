@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <h2>{{ formData.registrationType === 'PF' ? 'Pessoa Física' : 'Pessoa Jurídica' }}</h2>
     <form @submit.prevent="validateStep">
       <template v-if="formData.registrationType === 'PF'">
@@ -10,17 +10,20 @@
 
         <div class="form-group">
           <label class="label-text" for="cpf">CPF:</label>
-          <input class="input-group" id="cpf" type="text" v-model="formData.cpf" @input="event => applyCpfMask(event, formData)">
+          <input class="input-group" id="cpf" type="text" v-model="formData.cpf"
+            @input="event => applyCpfMask(event, formData)">
         </div>
-        
+
         <div class="form-group">
           <label class="label-text" for="birthDate">Data de nascimento:</label>
-          <input class="input-group" id="birthDate" type="text" v-model="formData.birthDate" @input="event => applyDateMask(event, formData, 'birthDate')">
+          <input class="input-group" id="birthDate" type="text" v-model="formData.birthDate"
+            @input="event => applyDateMask(event, formData, 'birthDate')">
         </div>
 
         <div class="form-group">
           <label class="label-text" for="phone">Telefone:</label>
-          <input class="input-group" id="phone" type="text" v-model="formData.phone" @input="event => applyPhoneMask(event, formData, 'phone')">
+          <input class="input-group" id="phone" type="text" v-model="formData.phone"
+            @input="event => applyPhoneMask(event, formData, 'phone')">
         </div>
       </template>
 
@@ -32,17 +35,20 @@
 
         <div class="form-group">
           <label class="label-text" for="cnpj">CNPJ:</label>
-          <input class="input-group" id="cnpj" type="text" v-model="formData.cnpj" @input="event => applyCnpjMask(event, formData)">
+          <input class="input-group" id="cnpj" type="text" v-model="formData.cnpj"
+            @input="event => applyCnpjMask(event, formData)">
         </div>
 
         <div class="form-group">
           <label class="label-text" for="companyOpeningDate">Data de abertura:</label>
-          <input class="input-group" id="companyOpeningDate" type="text" v-model="formData.companyOpeningDate" @input="event => applyDateMask(event, formData, 'companyOpeningDate')">
+          <input class="input-group" id="companyOpeningDate" type="text" v-model="formData.companyOpeningDate"
+            @input="event => applyDateMask(event, formData, 'companyOpeningDate')">
         </div>
 
         <div class="form-group">
           <label class="label-text" for="companyPhone">Telefone:</label>
-          <input class="input-group" id="companyPhone" type="text" v-model="formData.companyPhone" @input="event => applyPhoneMask(event, formData, 'companyPhone')">
+          <input class="input-group" id="companyPhone" type="text" v-model="formData.companyPhone"
+            @input="event => applyPhoneMask(event, formData, 'companyPhone')">
         </div>
       </template>
 

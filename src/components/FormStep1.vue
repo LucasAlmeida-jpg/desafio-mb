@@ -1,5 +1,4 @@
 <template>
-  <div class="container">
     <div>
       <h2>Seja bem vindo(a)</h2>
       <form @submit.prevent="validateStep">
@@ -22,7 +21,6 @@
         <button class="btn" type="submit">Continuar</button>
       </form>
     </div>
-  </div>
 </template>
 
 <script>

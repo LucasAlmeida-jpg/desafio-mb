@@ -1,11 +1,14 @@
 <template>
-  <div class="container">
-    <div>
+  <div>
       <h2>Senha de Acesso</h2>
       <form @submit.prevent="validateStep">
-        <div class="form-group">
+        <div class="form-group" v-if="formData.registrationType === 'PF'">
           <label class="label-text" for="password">Senha de acesso:</label>
           <input class="input-group" id="password" type="password" v-model="formData.password">
+        </div>
+        <div class="form-group" v-if="formData.registrationType === 'PJ'">
+          <label class="label-text" for="password">Senha de acesso:</label>
+          <input class="input-group" id="password" type="password" v-model="formData.passwordCompany">
         </div>
 
         <div class="button-group">
@@ -14,24 +17,20 @@
         </div>
       </form>
     </div>
-  </div>
 </template>
 
 <script>
+import { validatePassword } from '@/helpers/maskHelpers';
+
 export default {
   props: ['formData'],
   setup(props, { emit }) {
     const validateStep = () => {
-      const password = props.formData.password;
-      const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{5,}$/;
+      const password = props.formData.password || props.formData.passwordCompany;
+      const validationError = validatePassword(password);
 
-      if (!password) {
-        alert('Por favor, preencha a senha!');
-        return;
-      }
-
-      if (!passwordPattern.test(password)) {
-        alert('A senha deve conter pelo menos 1 letra maiúscula, 1 caractere especial e ter no mínimo 5 letras.');
+      if (validationError) {
+        alert(validationError);
         return;
       }
 

@@ -64,3 +64,18 @@ export const isValidName = (name) => {
 export const isValidEmail = (email) => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 };
+
+
+export const validatePassword = (password) => {
+  const passwordPattern = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z]).{5,}$/;
+
+  if (!password) {
+    return 'Por favor, preencha a senha!';
+  }
+
+  if (!passwordPattern.test(password)) {
+    return 'A senha deve conter pelo menos 1 letra maiúscula, 1 caractere especial e ter no mínimo 5 letras.';
+  }
+
+  return null;
+};
