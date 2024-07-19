@@ -61,7 +61,12 @@ const validateForm = (req, res, next) => {
   next();
 };
 
+app.get('/registration', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.post('/registration', validateForm, (req, res) => {
+  console.log(req.body);
   res.status(200).json({
     message: 'Cadastro realizado com sucesso',
     data: req.body,
