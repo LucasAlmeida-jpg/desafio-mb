@@ -44,17 +44,6 @@ form {
     gap: 10px;
   }
 
-  .btn-outline {
-    background-color: transparent;
-    border: none;
-    color: var(--vt-c-orange);
-    padding: 5px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 50%;
-  }
-
   .btn {
     background-color: var(--vt-c-orange);
     border: none;
@@ -84,7 +73,7 @@ form {
   }
 
   .label-text {
-    font-size: 13px;
+    font-size: 10px;
   }
 }
 

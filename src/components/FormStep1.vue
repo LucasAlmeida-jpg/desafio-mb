@@ -43,8 +43,6 @@ export default {
       }
     };
 
-
-
     return {
       validateStep,
       isValidEmail
