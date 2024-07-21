@@ -1,8 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 const app = express();
 const port = 3000;
+
+let registrationData = null;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -62,10 +65,15 @@ const validateForm = (req, res, next) => {
 };
 
 app.get('/registration', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  if (registrationData) {
+    res.json(registrationData);
+  } else {
+    res.status(404).json({ message: 'Nenhum cadastro encontrado' });
+  }
 });
 
 app.post('/registration', validateForm, (req, res) => {
+  registrationData = req.body;
   console.log(req.body);
   res.status(200).json({
     message: 'Cadastro realizado com sucesso',
